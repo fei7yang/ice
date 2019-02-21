@@ -1,0 +1,38 @@
+{
+  "name": "@icedesign/foundation-symbol",
+  "version": "1.0.1",
+  "description": "基础符号表",
+  "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "demo/",
+    "postinstall.js"
+  ],
+  "scripts": {
+    "start": "ice-devtools start",
+    "build": "ice-devtools build",
+    "prepublishOnly": "npm run build",
+    "postinstall": "node ./postinstall.js"
+  },
+  "keywords": [
+    "ice",
+    "ice-component"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@alifd/next": "^1.11.7",
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.0"
+  },
+  "devDependencies": {
+    "react-copy-to-clipboard": "^5.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0"
+  },
+  "componentConfig": {
+    "name": "foundation-symbol",
+    "title": "基础符号表"
+  }
+}
