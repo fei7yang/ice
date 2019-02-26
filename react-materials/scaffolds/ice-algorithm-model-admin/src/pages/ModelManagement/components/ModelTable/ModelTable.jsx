@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Table, Pagination } from '@icedesign/base';
+import { Table, Pagination, Dialog, Button } from '@alifd/next';
 import IceContainer from '@icedesign/container';
 import TableHead from './TableHead';
+import styles from './table.module.scss';
 
 // MOCK 数据，实际业务按需进行替换
-const getData = () => {
-  return Array.from({ length: 20 }).map((item, index) => {
+const getData = (length = 10) => {
+  return Array.from({ length }).map((item, index) => {
     return {
       modelName: '强化学习',
       version: `0.0.${index + 1}`,
@@ -18,52 +19,112 @@ const getData = () => {
 };
 
 export default class ModelTable extends Component {
-  static displayName = 'ModelTable';
+  state = {
+    current: 1,
+    isLoading: false,
+    data: [],
+  };
 
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      current: 1,
-    };
+  componentDidMount() {
+    this.fetchData();
   }
 
-  handlePaginationChange = (current) => {
-    this.setState({
-      current,
+  mockApi = (len) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(getData(len));
+      }, 600);
     });
   };
 
-  onChange = (selectedItems) => {
-    console.log('onChange callback', selectedItems);
+  fetchData = (len) => {
+    this.setState(
+      {
+        isLoading: true,
+      },
+      () => {
+        this.mockApi(len).then((data) => {
+          this.setState({
+            data,
+            isLoading: false,
+          });
+        });
+      }
+    );
+  };
+
+  handlePaginationChange = (current) => {
+    this.setState(
+      {
+        current,
+      },
+      () => {
+        this.fetchData();
+      }
+    );
+  };
+
+  handleFilterChange = () => {
+    this.fetchData(5);
+  };
+
+  handlePublish = () => {
+    Dialog.confirm({
+      content: '确认发布线上吗',
+      onOk: () => {
+        this.fetchData();
+      },
+    });
+  };
+
+  handleDelete = () => {
+    Dialog.confirm({
+      content: '确认删除该模型吗',
+      onOk: () => {
+        this.fetchData();
+      },
+    });
   };
 
   renderOper = () => {
     return (
       <div>
-        <a style={{ ...styles.btn, ...styles.detailBtn }}>详情</a>
-        <a style={{ ...styles.btn, ...styles.publishBtn }}>发布</a>
-        <a style={{ ...styles.btn, ...styles.deleteBtn }}>删除</a>
+        <Button
+          type="primary"
+          style={{ marginRight: '5px' }}
+          onClick={this.handlePublish}
+        >
+          发布
+        </Button>
+        <Button type="primary" warning onClick={this.handleDelete}>
+          删除
+        </Button>
       </div>
     );
   };
 
   renderState = (value) => {
-    return <span style={styles.state}>{value}</span>;
+    return (
+      <span className={styles.state}>
+        <i className={styles.dot} />
+        {value}
+      </span>
+    );
   };
 
   render() {
-    const dataSource = getData();
-    const { current } = this.state;
+    const { isLoading, data, current } = this.state;
 
     return (
-      <IceContainer style={styles.container}>
-        <h3 style={styles.title}>模型列表</h3>
-        <TableHead />
-        <Table dataSource={dataSource} hasBorder={false} style={styles.table}>
+      <IceContainer className={styles.container}>
+        <h3 className={styles.title}>模型列表</h3>
+        <TableHead onChange={this.handleFilterChange} />
+        <Table
+          loading={isLoading}
+          dataSource={data}
+          hasBorder={false}
+          className={styles.table}
+        >
           <Table.Column title="模型服务" dataIndex="modelName" />
           <Table.Column title="最新版本" dataIndex="version" />
           <Table.Column title="更新时间" dataIndex="updateTime" />
@@ -77,7 +138,7 @@ export default class ModelTable extends Component {
           <Table.Column title="操作" cell={this.renderOper} />
         </Table>
         <Pagination
-          style={styles.pagination}
+          className={styles.pagination}
           current={current}
           onChange={this.handlePaginationChange}
         />
@@ -85,50 +146,3 @@ export default class ModelTable extends Component {
     );
   }
 }
-
-const styles = {
-  container: {
-    padding: '0',
-  },
-  table: {
-    padding: '20px',
-  },
-  title: {
-    margin: '0',
-    padding: '15px 20px',
-    fonSize: '16px',
-    color: 'rgba(0, 0, 0, 0.85)',
-    fontWeight: '500',
-    borderBottom: '1px solid #f0f0f0',
-  },
-  btn: {
-    display: 'inline-block',
-    padding: '6px 12px',
-    fontSize: '12px',
-    borderRadius: '4px',
-    color: '#fff',
-    textDecoration: 'none',
-    cursor: 'pointer',
-  },
-  detailBtn: {
-    background: '#41cac0',
-    marginRight: '8px',
-  },
-  publishBtn: {
-    background: '#58c9f3',
-    marginRight: '8px',
-  },
-  deleteBtn: {
-    background: '#bec3c7',
-  },
-  state: {
-    padding: '6px 12px',
-    background: '#59ace2',
-    color: '#fff',
-    borderRadius: '4px',
-  },
-  pagination: {
-    margin: '20px 0',
-    textAlign: 'right',
-  },
-};

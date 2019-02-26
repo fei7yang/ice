@@ -5,8 +5,8 @@
  */
 
 import { push } from 'react-router-redux';
-import { Feedback } from '@icedesign/base';
-import { postUserLogout } from '../../api';
+import { Message } from '@alifd/next';
+import { postUserLogout } from '../../api/user';
 import { setAuthority } from '../../utils/authority';
 import { reloadAuthorized } from '../../utils/Authorized';
 import {
@@ -47,13 +47,12 @@ export const userLogout = () => {
       dispatch(userLogoutSuccess(response.data));
 
       if (response.data.status === 200) {
+        Message.success('已登出');
         setAuthority(response.data.currentAuthority);
-
         reloadAuthorized();
-
         dispatch(push('/user/login'));
       } else {
-        Feedback.toast.error('请稍后重试');
+        Message.error('请稍后重试');
       }
     } catch (error) {
       dispatch(userLogoutFailure(error));

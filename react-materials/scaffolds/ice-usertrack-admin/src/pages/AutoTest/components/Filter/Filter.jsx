@@ -1,21 +1,8 @@
 import React, { Component } from 'react';
-import { Grid, Input, Button } from '@icedesign/base';
+import { Input } from '@alifd/next';
 import IceContainer from '@icedesign/container';
 
-const { Row, Col } = Grid;
-
 export default class Filter extends Component {
-  static displayName = 'Filter';
-
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   onChange = (value) => {
     console.log({ value });
   };
@@ -28,7 +15,7 @@ export default class Filter extends Component {
           placeholder="请输入验证方案"
           hasClear
           onChange={this.onChange}
-          size="large"
+
           style={{ width: '300px' }}
         />
       </IceContainer>

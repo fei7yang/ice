@@ -1,4 +1,8 @@
 <style>
+  page {
+    background-color: #f4f4f4;
+  }
+
   .container {
     text-align: center;
     color: #666;
@@ -17,18 +21,18 @@
 </template>
 
 <script>
-  import searchInput from '../../components/search-input';
-  import banner from '../../components/banner';
-  import dataOverview from '../../components/data-overview';
-  import todoTask from '../../components/todo-task';
-  import fundCenter from '../../components/fund-center';
+  import searchInput from '../../components/search-input/index';
+  import banner from '../../components/banner/index';
+  import dataOverview from '../../components/data-overview/index';
+  import todoTask from '../../components/todo-task/index';
+  import fundCenter from '../../components/fund-center/index';
   export default {
     components: {
-      searchInput,
-      banner,
-      dataOverview,
-      todoTask,
-      fundCenter,
+      'search-input': searchInput,
+      'banner': banner,
+      'todo-task': todoTask,
+      'data-overview': dataOverview,
+      'fund-center': fundCenter,
     },
     data() {
       return {

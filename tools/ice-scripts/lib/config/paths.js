@@ -46,12 +46,14 @@ function resolveApp(relativePath) {
   return resolve(appDirectory, relativePath);
 }
 
+const isOldKoa = process.env.PROJECT_TYPE == 'node';
+
 module.exports = {
-  appBuild: resolveApp('build'),
-  appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appFavicon: resolveApp('public/favicon.png'),
-  appFaviconIco: resolveApp('public/favicon.ico'),
+  appBuild: resolveApp('build') ,
+  appPublic: resolveApp('public') ,
+  appHtml: isOldKoa ? resolveApp('client/index.html') : resolveApp('public/index.html'),
+  appFavicon: isOldKoa ? resolveApp('client/favicon.png') : resolveApp('public/favicon.png'),
+  appFaviconIco: isOldKoa ? resolveApp('client/favicon.ico') : resolveApp('public/favicon.ico'),
   appPackageJson: resolveApp('package.json'),
   appAbcJson: resolveApp('abc.json'),
   appSrc: resolveApp('src'),

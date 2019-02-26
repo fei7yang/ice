@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Tab, Button, Icon } from '@icedesign/base';
+import { Tab } from '@alifd/next';
 import IceContainer from '@icedesign/container';
 import CustomTable from './CustomTable';
 
-const TabPane = Tab.TabPane;
+const TabPane = Tab.Item;
 
 const tabs = [
   { tab: '全部 AppKey', key: 'all', content: <CustomTable /> },
@@ -19,35 +19,13 @@ function handleClick(key) {
 }
 
 export default class AppKey extends Component {
-  static displayName = 'AppKey';
-
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  renderTabExtraContent = () => {
-    return (
-      <Button type="primary" size="large" onClick={handleClick}>
-        <Icon type="add" /> 新建 AppKey
-      </Button>
-    );
-  };
-
   render() {
     return (
       <IceContainer style={styles.container}>
-        <Tab
-          onChange={handleChange}
-          tabBarExtraContent={this.renderTabExtraContent()}
-        >
+        <Tab onChange={handleChange}>
           {tabs.map((item) => {
             return (
-              <TabPane key={item.key} tab={item.tab} onClick={handleClick}>
+              <TabPane key={item.key} title={item.tab} onClick={handleClick}>
                 {item.content}
               </TabPane>
             );

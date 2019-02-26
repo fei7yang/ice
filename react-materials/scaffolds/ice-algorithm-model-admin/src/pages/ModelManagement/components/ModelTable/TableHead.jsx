@@ -1,6 +1,6 @@
 /* eslint react/no-string-refs:0 */
 import React, { Component } from 'react';
-import { Grid, Input, Select } from '@icedesign/base';
+import { Grid, Input, Select } from '@alifd/next';
 import {
   FormBinderWrapper as IceFormBinderWrapper,
   FormBinder as IceFormBinder,
@@ -10,24 +10,12 @@ import {
 const { Row, Col } = Grid;
 
 export default class TableHead extends Component {
-  static displayName = 'TableHead';
-
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: {},
-    };
-  }
+  state = {
+    value: {},
+  };
 
   formChange = (value) => {
-    console.log('value', value);
-    this.setState({
-      value,
-    });
+    this.props.onChange(value);
   };
 
   render() {
@@ -41,10 +29,9 @@ export default class TableHead extends Component {
           <Col l="8">
             <div style={styles.formItem}>
               <span style={styles.formLabel}>模型服务：</span>
-              <IceFormBinder triggerType="onBlur">
+              <IceFormBinder name="modelname" triggerType="onBlur">
                 <Select
-                  name="modelname"
-                  size="large"
+
                   style={{ width: '200px' }}
                 >
                   <Select.Option value="option1">强化学习</Select.Option>
@@ -60,8 +47,8 @@ export default class TableHead extends Component {
           <Col l="8">
             <div style={styles.formItem}>
               <span style={styles.formLabel}>创建人：</span>
-              <IceFormBinder triggerType="onBlur">
-                <Input placeholder="请输入" name="creator" size="large" />
+              <IceFormBinder name="creator" triggerType="onBlur">
+                <Input placeholder="请输入" />
               </IceFormBinder>
               <div style={styles.formError}>
                 <IceFormError name="creator" />
@@ -71,8 +58,8 @@ export default class TableHead extends Component {
           <Col l="8">
             <div style={styles.formItem}>
               <span style={styles.formLabel}>状态：</span>
-              <IceFormBinder triggerType="onBlur">
-                <Input placeholder="请输入" name="state" size="large" />
+              <IceFormBinder name="state" triggerType="onBlur">
+                <Input placeholder="请输入" />
               </IceFormBinder>
               <div style={styles.formError}>
                 <IceFormError name="state" />

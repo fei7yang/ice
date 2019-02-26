@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Pagination } from '@icedesign/base';
+import { Table, Pagination } from '@alifd/next';
 import PropTypes from 'prop-types';
 import './CustomTable.scss';
 
@@ -7,11 +7,13 @@ export default class Home extends Component {
   static displayName = 'Home';
 
   static defaultProps = {
+    isLoading: false,
     columns: [],
     dataSource: [],
   };
 
   static propTypes = {
+    isLoading: PropTypes.bool,
     columns: PropTypes.array,
     dataSource: PropTypes.array,
   };
@@ -24,13 +26,18 @@ export default class Home extends Component {
   }
 
   handlePagination = (current) => {
-    this.setState({
-      current,
-    });
+    this.setState(
+      {
+        current,
+      },
+      () => {
+        this.props.onChange();
+      }
+    );
   };
 
   render() {
-    const { dataSource, columns } = this.props;
+    const { isLoading, dataSource, columns } = this.props;
 
     return (
       <div>
@@ -38,6 +45,7 @@ export default class Home extends Component {
           dataSource={dataSource}
           hasBorder={false}
           className="custom-table"
+          loading={isLoading}
         >
           {columns.map((item) => {
             return (

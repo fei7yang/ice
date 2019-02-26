@@ -2,108 +2,96 @@
 // 你可以调整 routerConfig 里的内容
 // 变量名 routerConfig 为 iceworks 检测关键字，请不要修改名称
 
-import { getRouterData } from './utils/utils';
-import { asideMenuConfig } from './menuConfig';
-
-import BasicLayout from './layouts/BasicLayout';
-import UserLayout from './layouts/UserLayout';
 import UserLogin from './pages/UserLogin';
 import UserRegister from './pages/UserRegister';
 import Dashboard from './pages/Dashboard';
 import Charts from './pages/Charts';
-import Portlets from './pages/Portlets';
+import BaiscCharts from './pages/BaiscCharts';
 import Terms from './pages/Terms';
 import Result from './pages/Result';
-import Fail from './pages/Fail';
-import ServerError from './pages/ServerError';
-import Forbidden from './pages/Forbidden';
-import Empty from './pages/Empty';
-import List from './pages/List';
-import CardList from './pages/CardList';
+import BasicList from './pages/BasicList';
+import ProjectList from './pages/ProjectList';
 import BasicTable from './pages/BasicTable';
-import TableDisplay from './pages/TableDisplay';
-import NotFound from './pages/NotFound';
+import GeneralTable from './pages/GeneralTable';
+import Profile from './pages/Profile';
+import Setting from './pages/Setting';
+import Fail from './pages/Fail';
+import { Empty, Forbidden, NotFound, ServerError } from './pages/Exception';
+import { getRouterData } from './utils/utils';
+import { asideMenuConfig } from './menuConfig';
 
 const routerConfig = [
   {
-    path: '/dashboard',
+    path: '/dashboard/monitor',
     component: Dashboard,
-    layout: BasicLayout,
   },
   {
-    path: '/table/basic-table',
-    component: BasicTable,
-    layout: BasicLayout,
-  },
-  {
-    path: '/table/table-display',
-    component: TableDisplay,
-    layout: BasicLayout,
-  },
-  {
-    path: '/chart/chart-list',
+    path: '/chart/general',
     component: Charts,
-    layout: BasicLayout,
   },
   {
-    path: '/list/article-list',
-    component: List,
-    layout: BasicLayout,
+    path: '/chart/basic',
+    component: BaiscCharts,
   },
   {
-    path: '/list/card-list',
-    component: CardList,
-    layout: BasicLayout,
+    path: '/list/basic',
+    component: BasicList,
+  },
+  {
+    path: '/list/general',
+    component: ProjectList,
   },
   {
     path: '/result/success',
     component: Result,
-    layout: BasicLayout,
   },
   {
     path: '/result/fail',
     component: Fail,
-    layout: BasicLayout,
   },
   {
-    path: '/portlets/base',
-    component: Portlets,
-    layout: BasicLayout,
+    path: '/table/basic',
+    component: BasicTable,
   },
   {
-    path: '/portlets/terms',
+    path: '/profile/basic',
+    component: Profile,
+  },
+  {
+    path: '/profile/general',
     component: Terms,
-    layout: BasicLayout,
+  },
+  {
+    path: '/table/general',
+    component: GeneralTable,
+  },
+  {
+    path: '/account/setting',
+    component: Setting,
   },
   {
     path: '/exception/500',
     component: ServerError,
-    layout: BasicLayout,
   },
   {
     path: '/exception/403',
     component: Forbidden,
-    layout: BasicLayout,
   },
   {
     path: '/exception/204',
     component: Empty,
-    layout: BasicLayout,
   },
   {
     path: '/exception/404',
     component: NotFound,
-    layout: BasicLayout,
   },
   {
     path: '/user/login',
     component: UserLogin,
-    layout: UserLayout,
   },
   {
     path: '/user/register',
     component: UserRegister,
-    layout: UserLayout,
   },
 ];
 

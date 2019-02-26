@@ -1,6 +1,6 @@
 /* eslint react/no-string-refs:0 */
 import React, { Component } from 'react';
-import { Grid, Input, Select } from '@icedesign/base';
+import { Grid, Input, Select } from '@alifd/next';
 import {
   FormBinderWrapper as IceFormBinderWrapper,
   FormBinder as IceFormBinder,
@@ -10,24 +10,12 @@ import {
 const { Row, Col } = Grid;
 
 export default class TableHead extends Component {
-  static displayName = 'TableHead';
-
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: {},
-    };
-  }
+  state = {
+    value: {},
+  };
 
   formChange = (value) => {
-    console.log('value', value);
-    this.setState({
-      value,
-    });
+    this.props.onChange(value);
   };
 
   render() {
@@ -41,8 +29,8 @@ export default class TableHead extends Component {
           <Col l="8">
             <div style={styles.formItem}>
               <span style={styles.formLabel}>部门：</span>
-              <IceFormBinder triggerType="onBlur">
-                <Select name="type" size="large" style={{ width: '200px' }}>
+              <IceFormBinder name="type" triggerType="onBlur">
+                <Select style={{ width: '200px' }}>
                   <Select.Option value="taobao">淘宝</Select.Option>
                   <Select.Option value="dingding">钉钉</Select.Option>
                   <Select.Option value="aliyun">阿里云</Select.Option>
@@ -56,8 +44,8 @@ export default class TableHead extends Component {
           <Col l="8">
             <div style={styles.formItem}>
               <span style={styles.formLabel}>负责人：</span>
-              <IceFormBinder triggerType="onBlur">
-                <Input placeholder="请输入" name="leader" size="large" />
+              <IceFormBinder name="leader" triggerType="onBlur">
+                <Input placeholder="请输入" />
               </IceFormBinder>
               <div style={styles.formError}>
                 <IceFormError name="leader" />
@@ -67,8 +55,8 @@ export default class TableHead extends Component {
           <Col l="8">
             <div style={styles.formItem}>
               <span style={styles.formLabel}>预算：</span>
-              <IceFormBinder triggerType="onBlur">
-                <Input placeholder="请输入" name="budget" size="large" />
+              <IceFormBinder name="budget" triggerType="onBlur">
+                <Input placeholder="请输入" />
               </IceFormBinder>
               <div style={styles.formError}>
                 <IceFormError name="budget" />

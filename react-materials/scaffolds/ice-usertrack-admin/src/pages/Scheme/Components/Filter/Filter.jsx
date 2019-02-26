@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
-import { Grid, Input, Button } from '@icedesign/base';
+import { Grid, Input } from '@alifd/next';
 import IceContainer from '@icedesign/container';
 
 const { Row, Col } = Grid;
 
 export default class Filter extends Component {
-  static displayName = 'Filter';
-
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   onChange = (value) => {
-    console.log({ value });
+    if (!value) {
+      return;
+    }
+    this.props.onChange(value);
   };
 
   render() {
@@ -32,11 +24,8 @@ export default class Filter extends Component {
               placeholder="请输入方案名称"
               hasClear
               onChange={this.onChange}
-              size="large"
+
             />
-            <Button type="primary" size="large" style={styles.button}>
-              查 询
-            </Button>
           </Col>
         </Row>
       </IceContainer>

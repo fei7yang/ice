@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Grid, Icon } from '@icedesign/base';
+import { Grid, Icon, Dialog } from '@alifd/next';
+import styles from './index.module.scss';
 
 const { Row, Col } = Grid;
 
@@ -43,47 +43,52 @@ const getData = () => {
 };
 
 export default class ModelCard extends Component {
-  static displayName = 'ModelCard';
-
-  static propTypes = {
-    value: PropTypes.string,
+  handleInvoke = () => {
+    Dialog.confirm({
+      content: '请先申请权限在查看调用示例',
+    });
   };
 
-  static defaultProps = {
-    value: 'string data',
+  handleOnline = () => {
+    Dialog.confirm({
+      content: '只有超级权限才能设置在线预测',
+    });
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
 
   render() {
     const mockData = getData();
     return (
-      <Row wrap gutter="40" style={styles.row}>
+      <Row wrap gutter="40" className={styles.row}>
         {mockData.map((data, index) => {
           return (
             <Col l="6" key={index}>
-              <div style={styles.modelCard}>
-                <div style={styles.head}>
-                  <Icon type="electronics" style={styles.icon} /> {data.title}
+              <div className={styles.modelCard}>
+                <div className={styles.head}>
+                  <Icon type="electronics" className={styles.icon} /> {data.title}
                 </div>
-                <div style={styles.body}>
+                <div className={styles.body}>
                   {data.body.map((item, key) => {
                     return (
-                      <div style={styles.item} key={key}>
-                        <span style={styles.label}>{item.label}：</span>
-                        <span style={styles.value}>{item.value}</span>
+                      <div className={styles.item} key={key}>
+                        <span className={styles.label}>{item.label}：</span>
+                        <span className={styles.value}>{item.value}</span>
                       </div>
                     );
                   })}
                 </div>
-                <div style={styles.footer}>
-                  <a style={{ ...styles.button, ...styles.lightBlue }}>
+                <div className={styles.footer}>
+                  <a
+                    onClick={this.handleInvoke}
+                    className={styles.button1}
+                  >
                     调用示例
                   </a>
-                  <a style={{ ...styles.button, ...styles.green }}>在线预测</a>
+                  <a
+                    onClick={this.handleOnline}
+                    className={styles.button2}
+                  >
+                    在线预测
+                  </a>
                 </div>
               </div>
             </Col>
@@ -94,63 +99,3 @@ export default class ModelCard extends Component {
   }
 }
 
-const styles = {
-  row: {
-    padding: '20px',
-  },
-  modelCard: {
-    background: '#fff',
-    border: '1px solid #f5f5f5',
-    marginBottom: '40px',
-    borderRadius: '4px',
-  },
-  head: {
-    padding: '10px 0',
-    background: '#57c8f2',
-    color: '#fff',
-    textAlign: 'center',
-    borderRadius: '4px 4px 0 0',
-  },
-  item: {
-    padding: '10px 0',
-    display: 'flex',
-  },
-  label: {
-    width: '50%',
-    padding: '0 20px',
-    fontWeight: '500',
-    textAlign: 'right',
-    fontSize: '13px',
-  },
-  value: {
-    width: '50%',
-    fontSize: '13px',
-  },
-  body: {
-    padding: '20px',
-  },
-  icon: {
-    marginRight: '10px',
-  },
-  footer: {
-    borderTop: '1px solid #eee',
-    padding: '10px 0',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  button: {
-    marginRight: '10px',
-    padding: '6px 12px',
-    fontSize: '12px',
-    borderRadius: '3px',
-    color: '#fff',
-    textDecoration: 'none',
-    cursor: 'pointer',
-  },
-  lightBlue: {
-    background: '#58c9f3',
-  },
-  green: {
-    background: '#f77b6f',
-  },
-};

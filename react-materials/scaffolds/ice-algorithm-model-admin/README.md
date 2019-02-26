@@ -2,14 +2,12 @@
 
 该模板适用于云构建类的数据展示和管理后台
 
-> 使用文档
-
-使用:
+## 使用
 
 - 启动调试服务: `npm start`
 - 构建: `npm run build`
 
-目录结构:
+## 目录结构
 
 - react-router @4.x 默认采用 hashHistory 的单页应用
 - 入口文件: `src/index.js`
@@ -20,5 +18,10 @@
 - 通用组件: `src/components`
 - 页面文件: `src/pages`
 
-效果图:
-![screenshot](https://img.alicdn.com/tfs/TB1Pd6IbG6qK1RjSZFmXXX0PFXa-2840-1584.png)
+## 主题包
+
+- @icedesign/theme
+
+## 效果图
+
+![screenshot](https://img.alicdn.com/tfs/TB1R.aPDSzqK1RjSZFjXXblCFXa-2860-1580.png)

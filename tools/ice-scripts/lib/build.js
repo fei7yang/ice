@@ -1,5 +1,5 @@
 /**
- * 构建项目生成 dist ，根据传入的路径地址，按照 ICE page 的格则搜寻代码，并启动编译服务
+ * 构建项目生成 dist ，根据传入的路径地址，按照 ICE page 的规则搜寻代码，并启动编译服务
  * @param {String} cwd 项目目录
  * @param {Object} options 命令行参数
  */
@@ -9,23 +9,27 @@ process.env.NODE_ENV = 'production';
 const gulp = require('gulp');
 const rimraf = require('rimraf');
 const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
 
 const paths = require('./config/paths');
 const getEntries = require('./config/getEntry');
 const getWebpackConfigProd = require('./config/webpack.config.prod');
 const npmInstall = require('./helpers/npmInstall');
 
-module.exports = function() {
+module.exports = function(options) {
+  const { customWebpackConfig } = options || {};
+
   const cwd = process.cwd();
   const entries = getEntries(cwd);
   // eslint-disable-next-line
   const packageData = require(paths.appPackageJson);
   // get ice config by package.ice
 
-  const webpackConfig = getWebpackConfigProd({
+  let webpackConfig = getWebpackConfigProd({
     entry: entries,
     buildConfig: packageData.buildConfig || packageData.ice,
   });
+  webpackConfig = webpackMerge(webpackConfig, customWebpackConfig);
 
   // build task
   gulp.task('build', ['clean'], () => {

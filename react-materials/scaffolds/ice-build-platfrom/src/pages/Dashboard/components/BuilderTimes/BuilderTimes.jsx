@@ -1,7 +1,7 @@
 /* eslint object-shorthand: 0,space-before-function-paren:0, prefer-template:0, wrap-iife:0 */
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
-import { Select } from '@icedesign/base';
+import { Select } from '@alifd/next';
 
 const ReactHighcharts = require('react-highcharts');
 
@@ -60,16 +60,16 @@ const config = {
   series: [
     {
       name: '失败',
-      type: 'spline',
+      type: 'line',
       pointStart: 0,
-      color: '#f29b70',
+      color: '#5e83fb',
       zIndex: 3,
       data: [200, 300, 203, 485, 160, 322, 340, 128, 260, 280, 300, 320],
     },
     {
       name: '成功',
       type: 'column',
-      color: '#f29b70',
+      color: '#5e83fb',
       zIndex: 2,
       data: [55, 122, 151, 86, 72, 51, 36, 40, 200, 220, 240, 260],
     },
@@ -83,12 +83,6 @@ const cardTitle = {
 };
 
 export default class BuilderTimes extends Component {
-  static displayName = 'BuilderTimes';
-
-  static propTypes = {};
-
-  static defaultProps = {};
-
   constructor(props) {
     super(props);
     this.state = {

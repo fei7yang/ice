@@ -3,6 +3,7 @@ const colors = require('chalk');
 const ExtractCssAssetsWebpackPlugin = require('extract-css-assets-webpack-plugin');
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const path = require('path');
 const SimpleProgressPlugin = require('webpack-simple-progress-plugin');
 const webpack = require('webpack');
@@ -13,7 +14,7 @@ const normalizeEntry = require('../utils/normalizeEntry');
 const paths = require('./paths');
 const getEntryHtmlPlugins = require('./getEntryHtmlPlugins');
 
-module.exports = function({ buildConfig = {}, themeConfig = {}, entry }) {
+module.exports = ({ buildConfig = {}, themeConfig = {}, entry }) => {
   const defineVriables = {
     'process.env.NODE_ENV': JSON.stringify(
       process.env.NODE_ENV || 'development'
@@ -32,6 +33,10 @@ module.exports = function({ buildConfig = {}, themeConfig = {}, entry }) {
       chunkFilename: process.env.HASH
         ? 'css/[id].[hash:6].css'
         : 'css/[id].css',
+    }),
+    // FIX ISSUE: https://github.com/webpack-contrib/mini-css-extract-plugin/issues/250
+    new FilterWarningsPlugin({
+      exclude: /Conflicting order between:/,
     }),
     new SimpleProgressPlugin(),
     new CaseSensitivePathsPlugin(),
@@ -135,7 +140,7 @@ module.exports = function({ buildConfig = {}, themeConfig = {}, entry }) {
       new AppendStyleWebpackPlugin({
         variableFile: variableFilePath,
         appendPosition: 'footer',
-        type: 'sass',
+        // type: 'sass', // 不需要指定 type，与 distMatch 互斥
         srcFile: skinOverridePath,
         distMatch: /\.css/,
       })

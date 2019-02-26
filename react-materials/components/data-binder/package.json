@@ -1,20 +1,18 @@
 {
   "name": "@icedesign/data-binder",
-  "version": "0.1.8",
+  "version": "1.0.2",
   "description": "ICE 前后端数据绑定、交互方案",
   "main": "lib/index.js",
   "files": [
     "lib/",
-    "demo/"
+    "demo/",
+    "postinstall.js"
   ],
   "scripts": {
     "start": "ice-devtools start",
     "build": "ice-devtools build",
-    "prepublish": "npm run build"
-  },
-  "author": {
-    "name": "ICE Team",
-    "email": "ice-admin@alibaba-inc.com"
+    "prepublishOnly": "npm run build",
+    "postinstall": "node ./postinstall.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +23,11 @@
     "ice",
     "ice-component"
   ],
+  "peerDependencies": {
+    "react": "^16.5.0"
+  },
   "dependencies": {
-    "@icedesign/base": "^0.2.0",
+    "@alifd/next": "^1.11.7",
     "axios": "^0.18.0",
     "deepmerge": "^2.0.1",
     "pure-render-decorator": "^1.2.1"
@@ -35,7 +36,12 @@
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
     "express": "^4.14.0",
-    "ice-devtools": "^1.1.12",
-    "jsonp": "^0.2.1"
+    "jsonp": "^0.2.1",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0"
+  },
+  "componentConfig": {
+    "name": "data-binder",
+    "title": "ICE 前后端数据绑定、交互方案"
   }
 }

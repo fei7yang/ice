@@ -1,48 +1,37 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Grid } from '@icedesign/base';
-import FoundationSymbol from 'foundation-symbol';
+import { Grid } from '@alifd/next';
+import FoundationSymbol from '@icedesign/foundation-symbol';
 
 const { Row, Col } = Grid;
 
 const mockData = [
   {
-    symbolBgColor: '#6ccac9',
+    symbolBgColor: '#ee706d',
     symbol: 'shezhi',
     count: '861',
     desc: '模型总数',
   },
   {
-    symbolBgColor: '#ed6c5c',
+    symbolBgColor: '#f7da47',
     symbol: 'chart',
-    count: '83,495,050',
+    count: '8495',
     desc: '近30天总调用量',
   },
   {
-    symbolBgColor: '#f4d32f',
+    symbolBgColor: '#58ca9a',
     symbol: 'cascades',
-    count: '348,065',
+    count: '3065',
     desc: '近30天日均调用量',
   },
   {
-    symbolBgColor: '#6ac8f3',
+    symbolBgColor: '#447eff',
     symbol: 'yonghu',
-    count: '334,451',
+    count: '4451',
     desc: '用户总数',
   },
 ];
 
 export default class Overview extends Component {
-  static displayName = 'Overview';
-
-  static propTypes = {
-    value: PropTypes.string,
-  };
-
-  static defaultProps = {
-    value: 'string data',
-  };
-
   render() {
     return (
       <Row gutter={20}>

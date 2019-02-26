@@ -1,10 +1,8 @@
 ---
 title: 打包发布
-order: 9
+order: 10
 category: ICE Design Pro
 ---
-
-# 打包发布
 
 点击项目面板上的构建项目按钮，将开发的构建出最终的  `js` 、 `css` 、 `images`  等资源。
 
